@@ -41,7 +41,7 @@ export default function Hero({ onSearch, onTagSelect }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
           {/* Left Content Column */}
-          <div className="lg:col-span-6 xl:col-span-6 text-center lg:text-left pt-2 lg:pt-0">
+          <div className="hero-stagger lg:col-span-6 xl:col-span-6 text-center lg:text-left pt-2 lg:pt-0">
             
             {/* Tag */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-100/80 border border-orange-200 text-[#f15524] text-xs font-extrabold uppercase tracking-widest mb-6">
@@ -108,7 +108,7 @@ export default function Hero({ onSearch, onTagSelect }) {
           </div>
 
           {/* Right Image & Floating Pills Column */}
-          <div className="lg:col-span-6 xl:col-span-6 relative flex justify-center items-center">
+          <div className="hero-visual lg:col-span-6 xl:col-span-6 relative flex justify-center items-center">
             
             {/* Concentric Circle Aura Rings */}
             <div className="relative w-full max-w-[480px] lg:max-w-[530px] flex justify-center items-center">

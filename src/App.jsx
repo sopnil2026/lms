@@ -18,6 +18,8 @@ import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import StudentDashboardModal from './components/StudentDashboardModal';
 import Toast from './components/Toast';
+import Reveal from './components/Reveal';
+import ScrollProgress from './components/ScrollProgress';
 
 import { coursesData } from './data/coursesData';
 
@@ -185,6 +187,8 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-[#faf9f6] text-slate-800 font-sans selection:bg-[#f15524] selection:text-white">
       
+      <ScrollProgress />
+
       {/* 1. Top Contact & Social Bar */}
       <Topbar />
 
@@ -216,15 +220,20 @@ export default function App() {
       />
 
       {/* 4. Company Partners Bar */}
+      <Reveal>
       <PartnerLogos />
+      </Reveal>
 
       {/* 5. Popular Categories Section */}
+      <Reveal>
       <CategoriesSection
         onSelectCategory={handleSelectCategory}
         selectedCategory={selectedCategory}
       />
+      </Reveal>
 
       {/* 6. Featured Courses Section */}
+      <Reveal>
       <FeaturedCourses
         courses={coursesData}
         onSelectCourse={handleOpenCourse}
@@ -239,23 +248,32 @@ export default function App() {
         }}
         searchQuery={searchQuery}
       />
+      </Reveal>
 
       {/* 7. Platform Statistics */}
+      <Reveal>
       <StatsSection />
+      </Reveal>
 
       {/* 8. Why Choose Us Features */}
+      <Reveal>
       <WhyChooseUs />
+      </Reveal>
 
       {/* 9. Student Testimonials */}
+      <Reveal>
       <TestimonialsSection />
+      </Reveal>
 
       {/* 10. Become An Instructor CTA */}
+      <Reveal>
       <InstructorBanner
         onOpenAuth={(tab) => {
           setAuthTab(tab);
           setIsAuthOpen(true);
         }}
       />
+      </Reveal>
 
       {/* 11. Multi-Column Footer */}
       <Footer

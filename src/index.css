@@ -82,3 +82,76 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
+/* ======================================================================
+   Motion system
+   (the old `animate-in` utilities came from a plugin that isn't installed,
+   so they are defined here)
+   ====================================================================== */
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+:focus-visible { outline: 2px solid #f15524; outline-offset: 2px; border-radius: 6px; }
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slide-in-from-right { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes slide-in-from-bottom { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pop-in { from { opacity: 0; transform: scale(.94) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes shine { from { transform: translateX(-120%) skewX(-20deg); } to { transform: translateX(220%) skewX(-20deg); } }
+@keyframes drift { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(18px,-14px) scale(1.06); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+
+.animate-in { animation-duration: .25s; animation-timing-function: cubic-bezier(.2,.7,.2,1); animation-fill-mode: both; }
+.fade-in { animation-name: fade-in; }
+.slide-in-from-right { animation-name: slide-in-from-right; }
+.slide-in-from-bottom { animation-name: slide-in-from-bottom; }
+.duration-200 { animation-duration: .2s; }
+.duration-300 { animation-duration: .3s; }
+/* modal panels pop in */
+.fixed > .bg-white.rounded-3xl { animation: pop-in .35s cubic-bezier(.2,.7,.2,1) both; }
+
+/* Scroll reveal for sections */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+/* children of grids cascade in */
+.reveal:not(.is-visible) .grid > * { opacity: 0; }
+.reveal.is-visible .grid > * { animation: rise .7s cubic-bezier(.2,.7,.2,1) backwards; }
+.reveal.is-visible .grid > *:nth-child(1) { animation-delay: .05s; }
+.reveal.is-visible .grid > *:nth-child(2) { animation-delay: .12s; }
+.reveal.is-visible .grid > *:nth-child(3) { animation-delay: .19s; }
+.reveal.is-visible .grid > *:nth-child(4) { animation-delay: .26s; }
+.reveal.is-visible .grid > *:nth-child(5) { animation-delay: .33s; }
+.reveal.is-visible .grid > *:nth-child(6) { animation-delay: .40s; }
+.reveal.is-visible .grid > *:nth-child(n+7) { animation-delay: .45s; }
+
+/* Hero entrance */
+.hero-stagger > * { animation: rise .8s cubic-bezier(.2,.7,.2,1) backwards; }
+.hero-stagger > *:nth-child(1) { animation-delay: .05s; }
+.hero-stagger > *:nth-child(2) { animation-delay: .15s; }
+.hero-stagger > *:nth-child(3) { animation-delay: .25s; }
+.hero-stagger > *:nth-child(4) { animation-delay: .35s; }
+.hero-stagger > *:nth-child(5) { animation-delay: .45s; }
+.hero-stagger > *:nth-child(n+6) { animation-delay: .55s; }
+.hero-visual { animation: pop-in 1s cubic-bezier(.2,.7,.2,1) .2s backwards; }
+#home .rounded-full.border { animation: spin-slow 120s linear infinite; }
+#home .blur-3xl { animation: drift 12s ease-in-out infinite; }
+
+/* Premium interactions */
+button, a { transition-property: color, background-color, border-color, box-shadow, transform, translate, scale, opacity; transition-duration: .2s; }
+button:not(:disabled):active { transform: scale(.97); }
+.bg-\[\#f15524\]:is(button, a):not(:disabled):not(.absolute):not(.fixed) { position: relative; overflow: hidden; }
+.bg-\[\#f15524\]:is(button, a):not(:disabled)::after {
+  content: ''; position: absolute; inset: 0; width: 40%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: translateX(-120%) skewX(-20deg); pointer-events: none;
+}
+.bg-\[\#f15524\]:is(button, a):not(:disabled):hover::after { animation: shine .8s ease; }
+#courses img, #categories img { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+#courses .group:hover img { transform: scale(1.06); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .reveal { opacity: 1; transform: none; }
+  .reveal:not(.is-visible) .grid > * { opacity: 1; }
+}
